@@ -1,36 +1,36 @@
-import java.util.Scanner;
+#include <iostream>
+#include <chrono>  // For measuring execution time
 
-public class Fibonacci {
+using namespace std;
+using namespace std::chrono;  // Namespace for time measurement
 
-    public static int fibonacci(int n) {
-        if (n == 0) {
-            return 0; // Base case 1
-        } else if (n == 1) {
-            return 1; // Base case 2
-        } else {
-            return fibonacci(n - 1) + fibonacci(n - 2); // Recursive case
-        }
+// Recursive factorial function
+long long factorial(int n) {
+    if (n == 0 || n == 1) {
+        return 1; // Base case
+    } else {
+        return n * factorial(n - 1); // Recursive case
     }
+}
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a position to calculate the Fibonacci number: ");
-        int position = scanner.nextInt(); // User input
+int main() {
+    int num;
+    cout << "Enter a number to calculate its factorial: ";
+    cin >> num;
 
-        // Start time measurement
-        long startTime = System.nanoTime();
+    // Start time measurement
+    auto startTime = high_resolution_clock::now();
 
-        // Compute Fibonacci
-        int result = fibonacci(position);
+    // Compute factorial
+    long long result = factorial(num);
 
-        // End time measurement
-        long endTime = System.nanoTime();
-        long runtime = endTime - startTime; // Runtime in nanoseconds
+    // End time measurement
+    auto endTime = high_resolution_clock::now();
+    auto runtime = duration_cast<nanoseconds>(endTime - startTime).count();
 
-        // Output the result and runtime
-        System.out.println("The Fibonacci number at position " + position + " is: " + result);
-        System.out.println("Runtime: " + runtime + " nanoseconds");
+    // Output the result and runtime
+    cout << "The factorial of " << num << " is: " << result << endl;
+    cout << "Runtime: " << runtime << " nanoseconds" << endl;
 
-        scanner.close();
-    }
+    return 0;
 }
